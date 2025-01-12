@@ -61,9 +61,10 @@ doc_transformed = partitioned_doc.map(tableglom)
 doc_transformed.show()
 
 # EMBEDDING
+embedded_docs = embed_docs(doc_transformed)
 
-
-# WRITE TO PINECONE
+# WRITE TO SINGLESTORE
+write_to_singlestore(embedded_docs)
 
 # TESTS
 
