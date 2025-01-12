@@ -3,7 +3,7 @@ from utils.singlestore_write import write_to_singlestore
 from utils.inference import create_qa_chain
 from utils.data_loading import load_docs
 from utils.transform_docs import tableglom
-from tests.pilot_test import run_tests
+from tests.equake_taiwan_test import run_tests
 from sycamore.utils.pdf_utils import show_pages
 from sycamore.data import Element
 from sycamore.transforms.partition import ArynPartitioner
