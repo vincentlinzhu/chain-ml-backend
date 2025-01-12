@@ -1,17 +1,20 @@
 from utils.embeddings import embed_docs
 from utils.singlestore_write import write_to_singlestore
 
-# API Keys
+# API keys
 import os
-# from google.colab import userdata
 from dotenv import load_dotenv
-# Helper functions and objects
+
 from sycamore.llms.openai import OpenAIModels, OpenAI
 from sycamore.data import Element, Document
 from PIL import Image, ImageOps
 import sycamore
 from sycamore.context import ExecMode
 from sycamore.materialize import AutoMaterialize
+
+import mysql.connector
+import json
+import numpy as np
 
 load_dotenv()
 
