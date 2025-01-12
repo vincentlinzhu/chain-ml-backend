@@ -42,3 +42,18 @@ def create_qa_chain(cursor, connection) -> RetrievalQAWithSourcesChain:
     connection.close()
 
     return qa
+
+def query_vector_store(query: str, qa_chain: RetrievalQAWithSourcesChain):
+    # Perform similarity search using the vector store
+    relevant_documents = qa_chain.retriever.vectorstore.similarity_search(query, k=1)
+
+    # Use the LLM to generate an answer based on the retrieved documents
+    result = qa_chain({"question": query, "documents": relevant_documents})
+
+    qa_response = {
+        "answer": result.get("answer", "No answer found."),  # LLM's generated answer
+        "sources": result.get("sources", []),  # Sources used by the LLM
+        "source_documents": result.get("source_documents", [])  # Retrieved documents
+    }
+    
+    return result, qa_response
