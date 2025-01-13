@@ -50,10 +50,39 @@ def query_vector_store(query: str, qa_chain: RetrievalQAWithSourcesChain):
     # Use the LLM to generate an answer based on the retrieved documents
     result = qa_chain({"question": query, "documents": relevant_documents})
 
+    # qa_response = {
+    #     "answer": result.get("answer", "No answer found."),  # LLM's generated answer
+    #     "sources": result.get("sources", []),  # Sources used by the LLM
+    #     "source_documents": result.get("source_documents", [])  # Retrieved documents
+    # }
+
     qa_response = {
-        "answer": result.get("answer", "No answer found."),  # LLM's generated answer
-        "sources": result.get("sources", []),  # Sources used by the LLM
-        "source_documents": result.get("source_documents", [])  # Retrieved documents
+        "answer": result.get("answer", "No answer found.")
     }
     
-    return result, qa_response
+    return qa_response
+
+# def query_vector_store(query: str, qa_chain: RetrievalQAWithSourcesChain):
+#     # Perform similarity search using the vector store
+#     relevant_documents = qa_chain.retriever.vectorstore.similarity_search(query, k=1)
+
+#     # Convert the relevant documents to serializable format
+#     # Assuming each document has 'page_content' and 'metadata' attributes
+#     serializable_documents = [
+#         {"text": doc.page_content, "metadata": doc.metadata}  # Adjust this based on your document structure
+#         for doc in relevant_documents
+#     ]
+
+#     print(relevant_documents)
+
+#     # Use the LLM to generate an answer based on the retrieved documents
+#     result = qa_chain({"question": query, "documents": serializable_documents})
+
+#     # Create qa_response
+#     qa_response = {
+#         "answer": result.get("answer", "No answer found."),
+#         "sources": result.get("sources", []),
+#         "documents": serializable_documents  # Including the serialized documents
+#     }
+
+#     return result, qa_response
